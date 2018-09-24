@@ -1,7 +1,7 @@
-﻿using LanguageFeatures.MyExtensions;
+﻿//using LanguageFeatures.MyExtensions;
 using System;
 using System.Collections.Generic;
-//using System.Linq;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,7 +13,7 @@ namespace LanguageFeatures
         {
             //ExtensionMethodForString();
 
-            IEnumerable<Employee> employees = new Employee[]
+            var employees = new Employee[]
             {
                 new Employee() {Id = 4, Name = "Theodor"},
                 new Employee() {Id = 1, Name = "Fredrik"},
@@ -21,7 +21,7 @@ namespace LanguageFeatures
 
             };
 
-            IEnumerable<Employee> sales = new List<Employee>()
+            var sales = new List<Employee>()
             {
                 new Employee{ Id = 4, Name = "Robert"}
             };
@@ -33,16 +33,23 @@ namespace LanguageFeatures
 
             //var query = employees.Where(NameIsSevenCharatersLong);
 
-            //var query = employees.Where(e => (e.Name.Length == 7 && e.Name.StartsWith("F")) )
-            //                     .OrderBy(e => e.Name);
+            var query = employees.Where(e => (e.Name.Length == 7 && e.Name.StartsWith("F")) )
+                                 .OrderBy(e => e.Name)
+                                 .Select(e => new {
 
-            var query = employees.Filter(e => e.Name.Length == 7);
+                                                    Name = e.Name,
+                                                    Length = e.Name.Length,
+                                                    PI = 3.14
+
+                                                  });
+
+            //var query = employees.Filter(e => e.Name.Length == 7);
 
 
 
-            foreach (var employee in query)
+            foreach (var item in query)
             {
-                Console.WriteLine(employee.Name);
+                Console.WriteLine(item.Name +" "+ item.Length);
             }
 
             Console.WriteLine("---");
