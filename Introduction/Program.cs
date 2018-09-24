@@ -19,11 +19,18 @@ namespace Introduction
 
         private static void ShowLargeFilesWithLINQ(string path)
         {
+            // Method Syntax - LINQ
             var query = new DirectoryInfo(path).GetFiles()
                         .OrderByDescending(f => f.Length)
                         .Take(5);
 
-            foreach (var file in query)
+            // Query Syntax - LINQ
+            var query2 = from file in new DirectoryInfo(path).GetFiles()
+                         where file.Name.ToUpper().StartsWith("N")
+                         orderby file.Length descending
+                         select file;
+
+            foreach (var file in query2.Take(5))
             {
                 Console.WriteLine($"{file.Name,-20} : {file.Length,10:N0}");
             }
